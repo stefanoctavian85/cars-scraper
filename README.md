@@ -21,6 +21,6 @@ Cars Scraper is a web scraping project designed to gather information about cars
 3. Install the required dependencies:
    pip install os, selenium, pandas OR conda install os, selenium, pandas
 
-##Set up your environment variables
+## Set up your environment variables
 Create your .env file in the root directory and put your variables for chrome driver or whatever browser you are using.
    

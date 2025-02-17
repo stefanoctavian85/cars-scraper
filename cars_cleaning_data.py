@@ -69,5 +69,20 @@ cars["Marca"] = cars["Marca"] + " " + cars["Model"]
 cars = cars.drop(["Model"], axis=1)
 cars = cars.rename(columns={"Marca": "Masina"})
 
+#Modify the subgroups into one group for colors, fuel type, body type and transmission
+colors_df = cars["Culoare"].value_counts().reset_index()
+another_culors = colors_df[colors_df["count"] < 100]["Culoare"].tolist()
+cars["Culoare"] = cars["Culoare"].apply(lambda x: "Alte culori" if x in another_culors else x)
+
+cars["Combustibil"] = cars["Combustibil"].apply(lambda x: "Benzina" if "Benzina" in x else
+                                                            "Hibrid" if "Hibrid" in x else
+                                                            "Diesel")
+
+cars["Tip Caroserie"] = cars["Tip Caroserie"].apply(lambda x: "Sedan" if x in ["Sedan", "Combi"] else
+                                                                "Compact" if x in ["Compacta", "Masina de oras", "Masina mica"] else
+                                                                "Sport" if x in ["Cabrio", "Coupe"] else x)
+
+cars["Transmisie"] = cars["Transmisie"].apply(lambda x: "4x4" if x in ["4x4 (automat)", "4x4 (manual)"] else x)
+
 cars.to_csv("raw/cars_cleaned_dataset.csv", index=False)
 

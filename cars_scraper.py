@@ -109,6 +109,5 @@ for link in data_links:
 car_data_df = pd.DataFrame(car_data_list)
 car_data_df = car_data_df.rename(columns={'Anul producției': 'Anul productiei'})
 print(car_data_df)
-columns = ["Marca", "Model", "Culoare", "Anul productiei", "Numar locuri", "Combustibil", "Cutie de viteze", "Tip Caroserie",
-           "Capacitate cilindrica", "Putere", "Transmisie", "Consum Urban", "Consum Extraurban", "Pret", "Imagine"]
-car_data_df.to_csv("raw/test.csv", index=False, columns=columns)
+columns = list(car_data_df.columns)
+car_data_df.to_csv("raw/cars_full_dataset.csv", index=False, columns=columns)

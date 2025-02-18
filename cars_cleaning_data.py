@@ -33,7 +33,7 @@ def consumption_na_values(df: pd.DataFrame, col_name):
 
 cars = pd.read_csv("raw/cars_full_dataset.csv")
 
-# Exista valori lipsa in coloanele: Numar locuri(1,938), Capacitate cilindrica(235), Putere(3), Transmisie(647)
+# NA values: Numar locuri(1,938), Capacitate cilindrica(235), Putere(3), Transmisie(647)
 # Consum Urban(3,227), Consum Extraurban(4,296), Imagine(4)
 
 # Removing l/100km from consum urban and consum extraurban
@@ -84,5 +84,8 @@ cars["Tip Caroserie"] = cars["Tip Caroserie"].apply(lambda x: "Sedan" if x in ["
 
 cars["Transmisie"] = cars["Transmisie"].apply(lambda x: "4x4" if x in ["4x4 (automat)", "4x4 (manual)"] else x)
 
-cars.to_csv("raw/cars_cleaned_dataset.csv", index=False)
+nr_cars_df = cars["Masina"].value_counts().reset_index()
+nr_cars_df = nr_cars_df[nr_cars_df["count"] > 4]
+cars = cars[cars["Masina"].isin(nr_cars_df["Masina"])]
 
+cars.to_csv("raw/cars_cleaned_dataset.csv", index=False)
